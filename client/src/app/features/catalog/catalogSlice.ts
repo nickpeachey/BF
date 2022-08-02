@@ -23,11 +23,22 @@ export const catalogSlice = createSlice({
     initialState: beaglesAdapter.getInitialState({
         beaglesLoaded: false,
         beagleLoaded: false,
-        state: 'idle'
+        status: 'idle'
     }),
     reducers: {},
     extraReducers: (builder => {
-
+        builder.addCase(fetchBeaglesAsync.pending, (state) => {
+            state.status = 'pendingFetchBeagle'
+        });
+        builder.addCase(fetchBeaglesAsync.rejected, (state, action) => {
+            state.status = 'error';
+            console.log(action.payload);
+        });
+        builder.addCase(fetchBeaglesAsync.fulfilled, (state, action) => {
+            beaglesAdapter.setAll(state, action.payload);
+            state.status = 'idle';
+            state.beaglesLoaded = true;
+        });
     })
 });
 

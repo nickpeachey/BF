@@ -9,6 +9,7 @@ import {
 import { Route, Switch } from "react-router-dom";
 import Header from "./Header";
 import HomePage from "./Homepage";
+import Catalog from "../features/catalog/Catalog";
 
 function App() {
   const theme = createTheme({
@@ -28,6 +29,7 @@ function App() {
         <Container>
           <Switch>
             <Route exact path="/" component={HomePage} />
+            <Route exact path="/beagles" component={Catalog} />
           </Switch>
         </Container>
       </ThemeProvider>
